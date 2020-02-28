@@ -39,7 +39,7 @@ What features are more important may depend upon the appearance of  the objects 
 This basically means subtracting the corresponding color values, aggregating the differences and comparing it with the threshold. 
 
 <p align="right">
- <img src="./img/3.png" width="600" height="300" />
+ <img src="./img/3.png" width="600" height="400" />
  </p>
  
 Note: alternatively, I could compute the correlation between the car image and test region and check if that is high.
@@ -52,7 +52,6 @@ To figure out when template matching works and when it doesn't, let's play aroun
  <img src="./img/4.png" width="600" height="300" />
  </p>
  
-
-
+As seen in [the Template Matching code](https://github.com/A2Amir/Object-Detection/blob/master/code/Template%20Matching.ipynb) with template matching we can only find very close matches, and changes in size or orientation of a car make it impossible to match with a template.
 
  
