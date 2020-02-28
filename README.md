@@ -13,13 +13,14 @@ I will first explore what kind of visual features I can extract from images in o
 <p align="right">
  <img src="./img/1.png" width="600" height="300" />
  </p>
-Assume, I will have an algorithm that's outputting bounding box positions and I'll want an easy way to plot them up over my images (like above). So, now is a good time to get familiar with the cv2.rectangle() function ([documentation](http://docs.opencv.org/2.4/modules/core/doc/drawing_functions.html)) that makes it easy to draw boxes of different size, shape and color.
+ 
+Assume, I will have an algorithm that's outputting bounding box positions and I'll want an easy way to plot them up over my images (like above). So, now is a good time to get familiar with the cv2.rectangle() function that makes it easy to draw boxes of different size, shape and color.
 
     cv2.rectangle(image_to_draw_on, (x1, y1), (x2, y2), color, thick)
  
 In this call to cv2.rectangle() my image_to_draw_on should be the copy of your image, then (x1, y1) and (x2, y2) are the x and y coordinates of any two opposing corners of the bounding box I want to draw. color is a 3-tuple, for example, (0, 0, 255) for blue, and thick is an optional integer parameter to define the box thickness.
 
-If you want to investigate this function more closely, take a look at the bounding boxes exercise [code](https://github.com/A2Amir/Object-Detection/blob/master/code/the%20bounding%20boxes%20exercise.ipynb)
+If you want to investigate this function more closely, take a look at the bounding boxes exercise [code](https://github.com/A2Amir/Object-Detection/blob/master/code/BoundingBoxesExercise.ipynb)
 
 # 3. Features
 
@@ -46,12 +47,12 @@ Note: alternatively, I could compute the correlation between the car image and t
 
 This general approach is known as template matching. My known image is the template and I try to match it with regions of the test image. Template matching does work in limited circumstances but isn't very helpful for my case. 
 
-To figure out when template matching works and when it doesn't, let's play around with the OpenCV cv2.matchTemplate() function! In [the bounding boxes exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/Template%20Matching.ipynb), I found six cars in the image above. This time, I am going to play the opposite game. Assuming I know these six cars are what I am looking for, I can use them as templates and search the image for matches.
+To figure out when template matching works and when it doesn't, let's play around with the OpenCV cv2.matchTemplate() function! In [the bounding boxes exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/TemplateMatchingEcercise.ipynb), I found six cars in the image above. This time, I am going to play the opposite game. Assuming I know these six cars are what I am looking for, I can use them as templates and search the image for matches.
 
 <p align="right">
  <img src="./img/4.png" width="600" height="300" />
  </p>
  
-As seen in [the Template Matching code](https://github.com/A2Amir/Object-Detection/blob/master/code/Template%20Matching.ipynb) with template matching we can only find very close matches, and changes in size or orientation of a car make it impossible to match with a template.
+As seen in [the Template Matching code](https://github.com/A2Amir/Object-Detection/blob/master/code/TemplateMatchingEcercise.ipynb) with template matching we can only find very close matches, and changes in size or orientation of a car make it impossible to match with a template.
 
  
