@@ -13,7 +13,8 @@ I will first explore what kind of visual features I can extract from images in o
 <p align="right">
  <img src="./img/1.png" width="600" height="300" />
  </p>
-Assume, I will have an algorithm that's outputting bounding box positions and I'll want an easy way to plot them up over my images (like above). So, now is a good time to get familiar with the cv2.rectangle() function [documentation](http://docs.opencv.org/2.4/modules/core/doc/drawing_functions.html) that makes it easy to draw boxes of different size, shape and color.
+ 
+Assume, I will have an algorithm that's outputting bounding box positions and I'll want an easy way to plot them up over my images (like above). So, now is a good time to get familiar with the cv2.rectangle() function that makes it easy to draw boxes of different size, shape and color.
 
     cv2.rectangle(image_to_draw_on, (x1, y1), (x2, y2), color, thick)
  
