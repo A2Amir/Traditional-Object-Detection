@@ -55,4 +55,11 @@ To figure out when template matching works and when it doesn't, let's play aroun
  
 As seen in [the Template Matching code](https://github.com/A2Amir/Object-Detection/blob/master/code/TemplateMatchingEcercise.ipynb) with template matching we can only find very close matches, and changes in size or orientation of a car make it impossible to match with a template.
 
+
+# 5. Color Histogram Features
+Template matching is useful for detecting things that do not vary in their appearance much. For instance, icons or emojis on the screen. But for most real world objects that appear in different forms, orientation, sizes, this technique doesn't work quite well because it depends on raw color values laid out in a specific order.
+
+To solve this problem I need to find some transformations that are robust to changes in appearance. a transform is to compute the histogram of color values in an image and compare the histogram of a known object with regions of a test
+
+
  
