@@ -108,7 +108,52 @@ Here is [a code](https://github.com/A2Amir/Object-Detection/blob/master/code/Exp
 As seen in the exercise by trying different color spaces such as LUV or HLS I can find a way to consistently separate vehicle images from non-vehicles but It doesn't have to be perfect, but it will help when combined with other kinds of features fed into a classifier.
 
 
+# 6. Spatial Binning of Color
+raw pixel values are still quite useful to include in your feature vector in searching for cars. While it could be cumbersome to include three color channels of a full resolution image, I can perform spatial binning on an image and still retain enough information to help in finding vehicles.
+
+As seen in the example below, even going all the way down to 32 x 32 pixel resolution, the car itself is still clearly identifiable by eye, and this means that the relevant features are still preserved at this resolution.
 
 
+<p align="right">
+ <img src="./img/9.png" width="600" height="300" />
+ </p>
+ 
+A convenient function for scaling down the resolution of an image is OpenCV's cv2.resize(). I can use it to scale a color image or a single color channel like this:
+~~~python
+import cv2
+import matplotlib.image as mpimg
+
+image = mpimg.imread('test_img.jpg')
+small_img = cv2.resize(image, (32, 32))
+print(small_img.shape)
+(32, 32, 3)
+~~~
+then I can  convert the small image to a one dimensional feature vector, I could simply say something like:
+~~~python
+feature_vec = small_img.ravel()
+print(feature_vec.shape)
+(3072,)
+~~~
+
+#### Spatial Binning Exercise
+the goal of [this exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/SpatialBinningExercise.ipynb) is to write a function that takes an image, a color space conversion, and the resolution I would like to convert it to, and returns a feature vector.
+
+# 7. Gradient Features
+
+Transforming color values give me only one aspect of an object's appearance. When I have a class of objects that can vary in color (see below), structural ques like gradients or edges might give me a more robust presentation. 
 
 
+<p align="right">
+ <img src="./img/10.png" width="600" height="300" />
+ </p>
+ 
+ One problem with using gradient values directly is that it makes the signature too sensitive.  In fact, the presence of gradients in specific directions around the center may actually capture some more notion of shape. Let's take a look at some simple shapes to better understand this idea.
+Below is  a gradient image(in specific directions around the center) of a triangle If I chop up the gradients into different grid cells and treat the cells as a flat (1D array) I obtain a signature for the triangle. Similarly to a circle.
+
+<p align="right">
+ <img src="./img/11.png" width="600" height="300" />
+ </p>
+ 
+Ideally, the signature for a shape has enough flexibility to accommodate small variations in orientation, size, etc in contrast using gradient values directly. 
+ 
+ 
