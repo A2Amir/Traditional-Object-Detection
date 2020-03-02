@@ -61,5 +61,54 @@ Template matching is useful for detecting things that do not vary in their appea
 
 To solve this problem I need to find some transformations that are robust to changes in appearance. a transform is to compute the histogram of color values in an image and compare the histogram of a known object with regions of a test
 
-
+<p align="right">
+ <img src="./img/5.png" width="600" height="300" />
+ </p>
  
+#### Color Histograms Excercise 
+In this exercise I'll use one template used from the last exercise as an example and look at histograms of pixel intensity (color histograms) as features by using
+
+     np.histogram()
+
+Check this [code](https://github.com/A2Amir/Object-Detection/blob/master/code/ColorHistogramsExcercise%20.ipynb) to get more information.
+
+#### Histogram Comparison
+
+Let's look at the color histogram features for two totally different images. The first image is of a red car and the second a blue car. The red car's color histograms are displayed on the first row and the blue car's are displayed on the second row below. Here I am just looking at 8 bins per RGB channel.
+
+I could differentiate the two images based on the differences in histograms alone. As expected the image of the red car has a greater intensity of total bin values in the R Histogram 1 (Red Channel) compared to the blue car's R Histogram 2. In contrast the blue car has a greater intensity of total bin values in B Histogram 2 (Blue Channel) than the red car's B Histogram 1 features. Differentiating images by the intensity and range of color they contain can be helpful for looking at car vs non-car images.
+
+<p align="right">
+ <img src="./img/6.png" width="600" height="300" />
+ </p>
+
+
+# 5. Color Spaces
+
+Whether I use raw colors directly or build a histogram of those values, I still haven't solved the problem of representing objects of the same class that can be of different colors. Let's take a look at the image below to see how its color values are distributed in the RGB color space.
+
+<p align="right">
+ <img src="./img/7.png" width="600" height="300" />
+ </p>
+ 
+In the above example, the red and blue cars' pixels are clustered into two separate groups. Although I could come up with a scheme to identify these groups using RGB values but it can get complicated very quickly as I try to accommodate different colors. 
+
+In the [lane finding lesson](), I explored other color spaces like HLS and LUV to see where alternated representations of color space could make the object I am looking for stand out against the background. Instead of the raw red, green, blue values I get from a camera I look at saturation values (HSV color space) which seem the car pixels for the image above cluster  well on the saturation value plane.
+
+<p align="right">
+ <img src="./img/8.png" width="600" height="300" />
+ </p>
+ 
+But this(well clustering) may not be true for other images. In the next exercise I look at how the pixel values are distributed in a different color space and then I want to check if car pixels stand out from non-car pixels.
+
+#### Explore Color Spaces Ecercise
+
+Here is [a code](https://github.com/A2Amir/Object-Detection/blob/master/code/ExploreColorSpacesEcercise.ipynb) snippet that can be used to generate 3D plots of the distribution of color values in an image by plotting each pixel in some color space.
+
+As seen in the exercise by trying different color spaces such as LUV or HLS I can find a way to consistently separate vehicle images from non-vehicles but It doesn't have to be perfect, but it will help when combined with other kinds of features fed into a classifier.
+
+
+
+
+
+
