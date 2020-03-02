@@ -47,13 +47,13 @@ Note: alternatively, I could compute the correlation between the car image and t
 
 This general approach is known as template matching. My known image is the template and I try to match it with regions of the test image. Template matching does work in limited circumstances but isn't very helpful for my case. 
 
-To figure out when template matching works and when it doesn't, let's play around with the OpenCV cv2.matchTemplate() function! In [the bounding boxes exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/TemplateMatchingEcercise.ipynb), I found six cars in the image above. This time, I am going to play the opposite game. Assuming I know these six cars are what I am looking for, I can use them as templates and search the image for matches.
+To figure out when template matching works and when it doesn't, I am going to play around with the OpenCV cv2.matchTemplate() function! In [the bounding boxes exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/BoundingBoxesExercise.ipynb), I found six cars in the image above. This time, I am going to play the opposite game. Assuming I know these six cars are what I am looking for, I can use them as templates and search the image for matches.
 
 <p align="right">
  <img src="./img/4.png" width="600" height="300" />
  </p>
  
-As seen in [the Template Matching code](https://github.com/A2Amir/Object-Detection/blob/master/code/TemplateMatchingEcercise.ipynb) with template matching we can only find very close matches, and changes in size or orientation of a car make it impossible to match with a template.
+As seen in [the Template Matching code](https://github.com/A2Amir/Object-Detection/blob/master/code/TemplateMatchingExercise.ipynb) with template matching we can only find very close matches, and changes in size or orientation of a car make it impossible to match with a template.
 
 
 # 5. Color Histogram Features
@@ -70,7 +70,7 @@ In this exercise I'll use one template used from the last exercise as an example
 
      np.histogram()
 
-Check this [code](https://github.com/A2Amir/Object-Detection/blob/master/code/ColorHistogramsExcercise%20.ipynb) to get more information.
+Check this [code](https://github.com/A2Amir/Object-Detection/blob/master/code/ColorHistogramsExercise%20.ipynb) to get more information.
 
 #### Histogram Comparison
 
@@ -93,7 +93,7 @@ Whether I use raw colors directly or build a histogram of those values, I still 
  
 In the above example, the red and blue cars' pixels are clustered into two separate groups. Although I could come up with a scheme to identify these groups using RGB values but it can get complicated very quickly as I try to accommodate different colors. 
 
-In the [lane finding lesson](), I explored other color spaces like HLS and LUV to see where alternated representations of color space could make the object I am looking for stand out against the background. Instead of the raw red, green, blue values I get from a camera I look at saturation values (HSV color space) which seem the car pixels for the image above cluster  well on the saturation value plane.
+In the [lane finding lesson](https://github.com/A2Amir/Advanced-Lane-Line-Finding), I explored other color spaces like HLS and LUV to see where alternated representations of color space could make the object I am looking for stand out against the background. Instead of the raw red, green, blue values I get from a camera I look at saturation values (HSV color space) which seem the car pixels for the image above cluster  well on the saturation value plane.
 
 <p align="right">
  <img src="./img/8.png" width="600" height="300" />
@@ -103,7 +103,7 @@ But this(well clustering) may not be true for other images. In the next exercise
 
 #### Explore Color Spaces Ecercise
 
-Here is [a code](https://github.com/A2Amir/Object-Detection/blob/master/code/ExploreColorSpacesEcercise.ipynb) snippet that can be used to generate 3D plots of the distribution of color values in an image by plotting each pixel in some color space.
+Here is [a code](https://github.com/A2Amir/Object-Detection/blob/master/code/ExploreColorSpacesExercise.ipynb) snippet that can be used to generate 3D plots of the distribution of color values in an image by plotting each pixel in some color space.
 
 As seen in the exercise by trying different color spaces such as LUV or HLS I can find a way to consistently separate vehicle images from non-vehicles but It doesn't have to be perfect, but it will help when combined with other kinds of features fed into a classifier.
 
