@@ -65,7 +65,7 @@ To solve this problem I need to find some transformations that are robust to cha
  <img src="./img/5.png" width="600" height="300" />
  </p>
  
-#### Color Histograms Excercise 
+#### Color Histograms Exercise 
 In this exercise I'll use one template used from the last exercise as an example and look at histograms of pixel intensity (color histograms) as features by using
 
      np.histogram()
