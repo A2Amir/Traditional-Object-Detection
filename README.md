@@ -109,7 +109,7 @@ As seen in the exercise by trying different color spaces such as LUV or HLS I ca
 
 
 # 6. Spatial Binning of Color
-raw pixel values are still quite useful to include in your feature vector in searching for cars. While it could be cumbersome to include three color channels of a full resolution image, I can perform spatial binning on an image and still retain enough information to help in finding vehicles.
+raw pixel values are still quite useful to include in my feature vector in searching for cars. While it could be cumbersome to include three color channels of a full resolution image, I can perform spatial binning on an image and still retain enough information to help in finding vehicles.
 
 As seen in the example below, even going all the way down to 32 x 32 pixel resolution, the car itself is still clearly identifiable by eye, and this means that the relevant features are still preserved at this resolution.
 
