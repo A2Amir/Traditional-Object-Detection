@@ -207,7 +207,7 @@ The documentation for this function can be found [here](http://scikit-image.org/
 
 # 8. Data Exploration
 
- Throughout the rest of this lesson, I ll use a relatively small labeled dataset to try out feature extraction and training a classifier. Before I get on to training a classifier, let's explore the dataset a bit. This dataset is a subset of the data I'll be starting with for the project.
+ Throughout the rest of this lesson, I ll use [a relatively small labeled dataset](https://github.com/A2Amir/Object-Detection/tree/master/dataset) to try out feature extraction and training a classifier. Before I get on to training a classifier, let's explore the dataset a bit. This dataset is a subset of the data I'll be starting with for the project.
 
 <p align="right">
  <img src="./img/16.png" width="600" height="450" />
@@ -221,3 +221,31 @@ The documentation for this function can be found [here](http://scikit-image.org/
 * You can also download and explore the recently released Udacity labeled dataset. Each of [the Udacity datasets](https://github.com/udacity/self-driving-car/tree/master/annotations) comes with a labels.csv file that gives bounding box corners for each object labeled.
 
 Here you can see [the code exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/DataExplorationExercise.ipynb) I provided to extract the car/not-car image filenames into two lists. 
+
+# 9. Combine and Normalize Features 
+
+As noted before, it's not necessary to use only one kind of feature for object detection. 
+I can combine both color-based and shape-based features. After all, they complement each other in the information they capture about a desired object to design a more robust detection system. 
+
+However, I do need to be careful about how I use them. For example, assume that I am using HSV values as one input feature with the flatten vector containing a elements and HoG as the other feature with b elements. The simplest way of combining them is to concatenate the two (see gif).
+ 
+<p align="right">
+ <img src="./img/1.gif" width="600" height="300" />
+
+</p>
+
+If I visualize the feature vector as a simple bar plot, I might notice a difference in magnitude between the color-based and gradient-based features. This is because they represent different quantities. A normalization step may prevent one type from dominating the other in later stages. 
+
+ <p align="right">
+ <img src="./img/17.png" width="600" height="450" />
+ </p>
+ 
+
+There might be a lot more elements of one type than the other. This may or may not be a problem in itself, but it's generally a good idea to see if there are any redundancies in the combined feature vector. For instance, I could use a decision tree to analyze the relative importance of features and drop the ones that are not contributing much. 
+
+### Combine and Normalize Features Exercise
+
+I've got several feature extraction methods in my toolkit and I am almost ready to train a classifier, but first, as in any machine learning application, I need to normalize my data. Python's sklearn package provides you with the StandardScaler () method to accomplish this task. To read more about how I can extract features, choose different normalizations and combine them, check out [the exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/CombineAndNormalizeFeaturesExercise.ipynb).
+
+# 11. Build a Classifier
+
