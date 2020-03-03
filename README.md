@@ -284,7 +284,7 @@ After training I can verify how it performs on previously unseen examples using 
  <img src="./img/19.png" width="600" height="400" />
  </p>
  
-In the next exercise I am going to  implement a support vector machines as a classifier to classify images based on the bin_spatial and color histogram features.
+In the next exercise I am going to  implement a support vector machines as a classifier to classify car and none car objects based on the bin_spatial and color histogram features.
 
  #### Color Classify Exercise
 
