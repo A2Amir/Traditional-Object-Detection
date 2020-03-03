@@ -245,7 +245,46 @@ There might be a lot more elements of one type than the other. This may or may n
 
 ### Combine and Normalize Features Exercise
 
-I've got several feature extraction methods in my toolkit and I am almost ready to train a classifier, but first, as in any machine learning application, I need to normalize my data. Python's sklearn package provides you with the StandardScaler () method to accomplish this task. To read more about how I can extract features, choose different normalizations and combine them, check out [the exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/CombineAndNormalizeFeaturesExercise.ipynb).
+I've got several feature extraction methods in my toolkit and I am almost ready to train a classifier, but first, as in any machine learning application, I need to normalize my data. Python's sklearn package provides you with the StandardScaler method to accomplish this task. To read more about how I can extract features, choose different normalizations and combine them, check out [the exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/CombineAndNormalizeFeaturesExercise.ipynb).
 
 # 11. Build a Classifier
+
+ I've learned how to extract suitable features from an image but how I can use them to detect cars. A classic approach is to first design a classifier that can differentiate car images from non-car images and then run that classifier across an entire frame sampling small patches along the way. The patches that classified as car are the desired detections(see gif below). 
+
+<p align="right">
+ <img src="./img/2.gif" width="600" height="300" />
+
+</p>
+
+For this approach to work properly, I must train my classifier to distinguish car and non-car images but before training my classifier it is worth to mention that [my dataset](https://github.com/A2Amir/Object-Detection/tree/master/dataset) is a labelled (car and non car) and balanced(the Quantity of each class is Almost equal) dataset. if your dataset is a imbalanced dataset there are some techniques for handling imbalanced data sets, for example Data Augmentation.
+
+For training my classifier I need to split my dataset into two collections:
+
+* A training set 
+* A test set. 
+
+I will only use images from the training set when training my classifier and then check how it performs on unseen examples from the test set. 
+Note:
+
+<p align="right">
+ <img src="./img/18.png" width="600" height="400" />
+ </p>
+ 
+#### Training Phase
+
+Below is presented a gif which shows the phase of training a classifier. The training phase is an iterative procedure where one or more samples are presented to the classifier at a time, which then predicts their labels. The error between these predicted labels and ground-truth is used as a signal to modify the parameters of a classifier. When the error falls below a certain threshold (see next image image), or when enough iterations.
+
+<p align="right">
+ <img src="./img/3.gif" width="600" height="300" />
+</p>
+
+After training I can verify how it performs on previously unseen examples using the test set. The error on the test set is typically larger than that on the training set, which is expected. But If I keep training beyond a certain point (A), my training error may keep decreasing, but my test error will begin to increase again. This is known as overfitting. My model fits the training data very well, but is unable to generalize to unseen examples (See image below). 
+
+<p align="right">
+ <img src="./img/19.png" width="600" height="300" />
+ </p>
+ 
+In the next exercise I am going to  implement a support vector machines as a classifier to classify images based on the bin_spatial and color histogram features.
+
+ #### Color Classify Exercise
 
