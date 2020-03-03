@@ -155,5 +155,48 @@ Below is  a gradient image(in specific directions around the center) of a triang
  </p>
  
 Ideally, the signature for a shape has enough flexibility to accommodate small variations in orientation, size, etc in contrast using gradient values directly. 
+
+### Histogram of Oriented Gradient (HOG) Features
+
+Assume, I have a 64 by 64 pixel image of a car  and I computed the gradient magnitudes and directions at each pixel. Now, instead of using all the gradient individual values, I grouped them up into small cells( like below size 8 by 8 pixels)
+
+<p align="right">
+ <img src="./img/12.png" width="600" height="300" />
+ </p>
+ 
+ Then I computed a histogram of gradient directions from each of the 64 pixels within the cell. The resulting histogram looks somewhat like below.
+
+<p align="right">
+ <img src="./img/13.png" width="600" height="300" />
+ </p>
+ 
+ A better way to visualize the histogram for an individual cell would be to add up the contributions in each orientation bin to get a sort of star with arms of different lengths like below
+ 
+ 
+<p align="right">
+ <img src="./img/14.png" width="600" height="300" />
+ </p>
+ 
+The direction with the longest arm is the dominant gradient direction in the cell. Note that the histogram is not strictly a count of the number of samples in each direction. Instead, I sum up the gradient magnitude of each sample. So stronger gradients contribute more weight to their orientation bin and the effect of small random gradients due to noise, etc., is reduced. In other words, each pixel in the image gets a vote on which histogram bin it belongs in based on the gradient direction at that position but the strength or weight of that vote depends on the gradient magnitude at that pixel. 
+
+
+When I do voting for all the cells (64 cells), I begin to see a representation of the original structure emerge. As demonstrated with simpler shapes before something like below can be used as a signature for a given shape. 
+
+<p align="right">
+ <img src="./img/15.png" width="600" height="300" />
+ </p>
+ 
+This is known as a histogram of oriented gradients, or HoG feature. The main advantage now is that I have built in the ability to accept small variations in the shape, while keeping the signature distinct enough. 
+
+How accommodating or sensitive the feature is can be tweaked by 
+* orientation bins
+* grid of cells
+* cell sizes
+* adding any overlap between cells
+* including normalizing for  intensity across small blocks of cells
+
+You can find the original developer of HOG for object detection on the subject [here](http://lear.inrialpes.fr/people/triggs/pubs/Dalal-cvpr05.pdf).
+
+ 
  
  
