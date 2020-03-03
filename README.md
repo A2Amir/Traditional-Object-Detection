@@ -161,7 +161,7 @@ Ideally, the signature for a shape has enough flexibility to accommodate small v
 Assume, I have a 64 by 64 pixel image of a car  and I computed the gradient magnitudes and directions at each pixel. Now, instead of using all the gradient individual values, I grouped them up into small cells( like below size 8 by 8 pixels)
 
 <p align="right">
- <img src="./img/12.png" width="600" height="300" />
+ <img src="./img/12.png" width="600" height="450" />
  </p>
  
  Then I computed a histogram of gradient directions from each of the 64 pixels within the cell. The resulting histogram looks somewhat like below.
@@ -183,7 +183,7 @@ The direction with the longest arm is the dominant gradient direction in the cel
 When I do voting for all the cells (64 cells), I begin to see a representation of the original structure emerge. As demonstrated with simpler shapes before something like below can be used as a signature for a given shape. 
 
 <p align="right">
- <img src="./img/15.png" width="600" height="300" />
+ <img src="./img/15.png" width="600" height="450" />
  </p>
  
 This is known as a histogram of oriented gradients, or HoG feature. The main advantage now is that I have built in the ability to accept small variations in the shape, while keeping the signature distinct enough. 
@@ -198,5 +198,26 @@ How accommodating or sensitive the feature is can be tweaked by
 You can find the original developer of HOG for object detection on the subject [here](http://lear.inrialpes.fr/people/triggs/pubs/Dalal-cvpr05.pdf).
 
  
+### scikit-image HOG Exercise
+
+In [this exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/HistogramofOrientedGradient(HOG)Exercise.ipynb) I am going to use the scikit-image hog() function, which  takes in a single color channel or grayscaled image as input, as well as various parameters and computes HOG features for the image
+
+The documentation for this function can be found [here](http://scikit-image.org/docs/dev/api/skimage.feature.html?highlight=feature%20hog#skimage.feature.hog) and a brief explanation of the algorithm and tutorial can be found [here](http://scikit-image.org/docs/dev/auto_examples/features_detection/plot_hog.html).
+
+
+# 8. Data Exploration
+
+ Throughout the rest of this lesson, I ll use a relatively small labeled dataset to try out feature extraction and training a classifier. Before I get on to training a classifier, let's explore the dataset a bit. This dataset is a subset of the data I'll be starting with for the project.
+
+<p align="right">
+ <img src="./img/16.png" width="600" height="450" />
+ </p>
  
  
+ #### Note:
+ 
+ * you can download this subset of images for [vehicles](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles_smallset.zip) and [non-vehicles](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles_smallset.zip), or if you prefer you can directly grab the larger project dataset for [vehicles](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicles](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip).
+
+* You can also download and explore the recently released Udacity labeled dataset. Each of [the Udacity datasets](https://github.com/udacity/self-driving-car/tree/master/annotations) comes with a labels.csv file that gives bounding box corners for each object labeled.
+
+Here you can see [the code exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/DataExplorationExercise.ipynb) I provided to extract the car/not-car image filenames into two lists. 
