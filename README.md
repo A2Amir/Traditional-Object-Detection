@@ -281,7 +281,7 @@ Below is presented a gif which shows the phase of training a classifier. The tra
 After training I can verify how it performs on previously unseen examples using the test set. The error on the test set is typically larger than that on the training set, which is expected. But If I keep training beyond a certain point (A), my training error may keep decreasing, but my test error will begin to increase again. This is known as overfitting. My model fits the training data very well, but is unable to generalize to unseen examples (See image below). 
 
 <p align="right">
- <img src="./img/19.png" width="600" height="300" />
+ <img src="./img/19.png" width="600" height="400" />
  </p>
  
 In the next exercise I am going to  implement a support vector machines as a classifier to classify images based on the bin_spatial and color histogram features.
