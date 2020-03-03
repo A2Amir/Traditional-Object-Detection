@@ -155,5 +155,136 @@ Below is  a gradient image(in specific directions around the center) of a triang
  </p>
  
 Ideally, the signature for a shape has enough flexibility to accommodate small variations in orientation, size, etc in contrast using gradient values directly. 
+
+### Histogram of Oriented Gradient (HOG) Features
+
+Assume, I have a 64 by 64 pixel image of a car  and I computed the gradient magnitudes and directions at each pixel. Now, instead of using all the gradient individual values, I grouped them up into small cells( like below size 8 by 8 pixels)
+
+<p align="right">
+ <img src="./img/12.png" width="600" height="450" />
+ </p>
+ 
+ Then I computed a histogram of gradient directions from each of the 64 pixels within the cell. The resulting histogram looks somewhat like below.
+
+<p align="right">
+ <img src="./img/13.png" width="600" height="300" />
+ </p>
+ 
+ A better way to visualize the histogram for an individual cell would be to add up the contributions in each orientation bin to get a sort of star with arms of different lengths like below
  
  
+<p align="right">
+ <img src="./img/14.png" width="600" height="300" />
+ </p>
+ 
+The direction with the longest arm is the dominant gradient direction in the cell. Note that the histogram is not strictly a count of the number of samples in each direction. Instead, I sum up the gradient magnitude of each sample. So stronger gradients contribute more weight to their orientation bin and the effect of small random gradients due to noise, etc., is reduced. In other words, each pixel in the image gets a vote on which histogram bin it belongs in based on the gradient direction at that position but the strength or weight of that vote depends on the gradient magnitude at that pixel. 
+
+
+When I do voting for all the cells (64 cells), I begin to see a representation of the original structure emerge. As demonstrated with simpler shapes before something like below can be used as a signature for a given shape. 
+
+<p align="right">
+ <img src="./img/15.png" width="600" height="450" />
+ </p>
+ 
+This is known as a histogram of oriented gradients, or HoG feature. The main advantage now is that I have built in the ability to accept small variations in the shape, while keeping the signature distinct enough. 
+
+How accommodating or sensitive the feature is can be tweaked by 
+* orientation bins
+* grid of cells
+* cell sizes
+* adding any overlap between cells
+* including normalizing for  intensity across small blocks of cells
+
+You can find the original developer of HOG for object detection on the subject [here](http://lear.inrialpes.fr/people/triggs/pubs/Dalal-cvpr05.pdf).
+
+ 
+### scikit-image HOG Exercise
+
+In [this exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/HistogramofOrientedGradient(HOG)Exercise.ipynb) I am going to use the scikit-image hog() function, which  takes in a single color channel or grayscaled image as input, as well as various parameters and computes HOG features for the image
+
+The documentation for this function can be found [here](http://scikit-image.org/docs/dev/api/skimage.feature.html?highlight=feature%20hog#skimage.feature.hog) and a brief explanation of the algorithm and tutorial can be found [here](http://scikit-image.org/docs/dev/auto_examples/features_detection/plot_hog.html).
+
+
+# 8. Data Exploration
+
+ Throughout the rest of this lesson, I ll use [a relatively small labeled dataset](https://github.com/A2Amir/Object-Detection/tree/master/dataset) to try out feature extraction and training a classifier. Before I get on to training a classifier, let's explore the dataset a bit. This dataset is a subset of the data I'll be starting with for the project.
+
+<p align="right">
+ <img src="./img/16.png" width="600" height="450" />
+ </p>
+ 
+ 
+ #### Note:
+ 
+ * you can download this subset of images for [vehicles](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles_smallset.zip) and [non-vehicles](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles_smallset.zip), or if you prefer you can directly grab the larger project dataset for [vehicles](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicles](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip).
+
+* You can also download and explore the recently released Udacity labeled dataset. Each of [the Udacity datasets](https://github.com/udacity/self-driving-car/tree/master/annotations) comes with a labels.csv file that gives bounding box corners for each object labeled.
+
+Here you can see [the code exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/DataExplorationExercise.ipynb) I provided to extract the car/not-car image filenames into two lists. 
+
+# 9. Combine and Normalize Features 
+
+As noted before, it's not necessary to use only one kind of feature for object detection. 
+I can combine both color-based and shape-based features. After all, they complement each other in the information they capture about a desired object to design a more robust detection system. 
+
+However, I do need to be careful about how I use them. For example, assume that I am using HSV values as one input feature with the flatten vector containing a elements and HoG as the other feature with b elements. The simplest way of combining them is to concatenate the two (see gif).
+ 
+<p align="right">
+ <img src="./img/1.gif" width="600" height="300" />
+
+</p>
+
+If I visualize the feature vector as a simple bar plot, I might notice a difference in magnitude between the color-based and gradient-based features. This is because they represent different quantities. A normalization step may prevent one type from dominating the other in later stages. 
+
+ <p align="right">
+ <img src="./img/17.png" width="600" height="450" />
+ </p>
+ 
+
+There might be a lot more elements of one type than the other. This may or may not be a problem in itself, but it's generally a good idea to see if there are any redundancies in the combined feature vector. For instance, I could use a decision tree to analyze the relative importance of features and drop the ones that are not contributing much. 
+
+### Combine and Normalize Features Exercise
+
+I've got several feature extraction methods in my toolkit and I am almost ready to train a classifier, but first, as in any machine learning application, I need to normalize my data. Python's sklearn package provides you with the StandardScaler method to accomplish this task. To read more about how I can extract features, choose different normalizations and combine them, check out [the exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/CombineAndNormalizeFeaturesExercise.ipynb).
+
+# 11. Build a Classifier
+
+ I've learned how to extract suitable features from an image but how I can use them to detect cars. A classic approach is to first design a classifier that can differentiate car images from non-car images and then run that classifier across an entire frame sampling small patches along the way. The patches that classified as car are the desired detections(see gif below). 
+
+<p align="right">
+ <img src="./img/2.gif" width="600" height="300" />
+
+</p>
+
+For this approach to work properly, I must train my classifier to distinguish car and non-car images but before training my classifier it is worth to mention that [my dataset](https://github.com/A2Amir/Object-Detection/tree/master/dataset) is a labelled (car and non car) and balanced(the Quantity of each class is Almost equal) dataset. if your dataset is a imbalanced dataset there are some techniques for handling imbalanced data sets, for example Data Augmentation.
+
+For training my classifier I need to split my dataset into two collections:
+
+* A training set 
+* A test set. 
+
+I will only use images from the training set when training my classifier and then check how it performs on unseen examples from the test set. 
+Note:
+
+<p align="right">
+ <img src="./img/18.png" width="600" height="400" />
+ </p>
+ 
+#### Training Phase
+
+Below is presented a gif which shows the phase of training a classifier. The training phase is an iterative procedure where one or more samples are presented to the classifier at a time, which then predicts their labels. The error between these predicted labels and ground-truth is used as a signal to modify the parameters of a classifier. When the error falls below a certain threshold (see next image image), or when enough iterations.
+
+<p align="right">
+ <img src="./img/3.gif" width="600" height="300" />
+</p>
+
+After training I can verify how it performs on previously unseen examples using the test set. The error on the test set is typically larger than that on the training set, which is expected. But If I keep training beyond a certain point (A), my training error may keep decreasing, but my test error will begin to increase again. This is known as overfitting. My model fits the training data very well, but is unable to generalize to unseen examples (See image below). 
+
+<p align="right">
+ <img src="./img/19.png" width="600" height="400" />
+ </p>
+ 
+In the next exercise I am going to  implement a support vector machines as a classifier to classify car and none car objects based on the bin_spatial and color histogram features.
+
+ #### Color Classify Exercise
+
