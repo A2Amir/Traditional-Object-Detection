@@ -288,3 +288,49 @@ In the next exercise I am going to  implement a support vector machines as a cla
 
  #### Color Classify Exercise
 
+In this [exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/ColorClassifyExercise.ipynb) first I'll use the functions I defined in previous exercises, namely, bin_spatial(), color_hist(), and extract_features() then read in my car and non-car images and extract the color features for each. All that remains is to define a labels vector, shuffle and split the data into training and testing sets, scale the feature vectors to zero mean and unit variance, and finally, define a classifier and train it!
+
+ ####  HOG Classify Exercise
+In this [exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/HOGClassifyExercise.ipynb), I am going to classify HOG features and see how well I can do.
+
+# 12. Parameter Tuning
+
+In the Color Classify and HOG Classify Exercises, I want to tune my  SVC algorithm which involves searching for a kernel, a gamma value and a C value that minimize prediction error. To tune my SVM vehicle detection model, I can use one of scikit-learn's parameter tuning algorithms.
+
+When tuning SVM, remember that I can only tune the C parameter with a linear kernel. For a non-linear kernel, I can tune C and gamma.
+Parameter Tuning in Scikit-learn. Scikit-learn includes two algorithms for carrying out an automatic parameter search:
+
+* [GridSearchCV](http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV)
+
+* [RandomizedSearchCV](http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html#sklearn.model_selection.RandomizedSearchCV)
+
+GridSearchCV exhaustively works through multiple parameter combinations, cross-validating as it goes. The beauty is that it can work through many combinations in only a couple extra lines of code.  For example, if I input the values C:[0.1, 1, 10] and gamma:[0.1, 1, 10], gridSearchCV will train and cross-validate every possible combination of (C, gamma): (0.1, 0.1), (0.1, 1), (0.1, 10), (1, .1), (1, 1), etc. 
+
+
+RandomizedSearchCV works similarly to GridSearchCV except RandomizedSearchCV takes a random sample of parameter combinations. RandomizedSearchCV is faster than GridSearchCV since RandomizedSearchCV uses a subset of the parameter combinations.
+To get familiar with Cross-validation and GridSearchCV check this Exercise.
+
+# 13. Sliding Windows
+
+The  next step is to implement a sliding window technique, where I'll step across an image in a grid pattern and extract the same features I trained my classifier on in each window. I'll run your classifier to give a prediction at each step and with any luck, it will tell me which windows in my image contains cars (see gif below).
+<p align="right">
+ <img src="./img/4.gif" width="600" height="400" />
+ </p>
+ 
+Before implementing a sliding window search, I need to decide what size window I want to search, where in the image I want to start and stop my search, and how much I want windows to overlap. Suppose I have an image that is 256 x 256 pixels and I want to search windows of a size 128 x 128 pixels each with an overlap of 50% between adjacent windows in both the vertical and horizontal dimensions. My sliding window search would then look like below:
+
+<p align="right">
+ <img src="./img/20.png" width="600" height="400" />
+ </p>
+ As seen, I searched 9 windows total in this case.
+
+#### To calculate the total_windows  I can use the general Formula below:
+
+     •	windows_x = 1 + (image_width - window_width)/(window_width * overlap_proportion)
+     •	windows_y = 1 + (image_height - window_height)/(window_height * overlap_proportion)
+     •	total_windows = windows_x * windows_y 
+     
+#### Sliding Window Exercise
+In this [exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/SlidingWindowExercise.ipynb), I am going to write a function that takes in an image, start and stop positions in both x and y , window size (x and y dimensions), and overlap fraction (also for both x and y)und draw all bounding boxes for the search windows on image. 
+
+ 
