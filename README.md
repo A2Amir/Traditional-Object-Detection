@@ -334,3 +334,31 @@ Before implementing a sliding window search, I need to decide what size window I
 In this [exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/SlidingWindowExercise.ipynb), I am going to write a function that takes in an image, start and stop positions in both x and y , window size (x and y dimensions), and overlap fraction (also for both x and y)und draw all bounding boxes for the search windows on image. 
 
  
+# 14 Search and Classify
+Now I am able to run a sliding window search on an image and I've trained a classifier... time to 
+run my sliding window search, extract features, and predict whether each window contains a car or not. 
+
+#### Search and Classify Exercise
+In this [exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/SearchAndClassifyExercise.ipynb), I will use all functions I've defined so far in the lesson plus two new functions ( single_img_features() and search_windows() ). I can use these to search over all the windows defined by my slide_windows(), extract features at each window position, and predict with my classifier on each set of features. 
+
+# 15. Multi-scale Windows
+As seen in the Search and Classify Exercise my trained support vector classifier could not detect all vehicles in the image very well (see result below)  
+
+<p align="right">
+ <img src="./img/21.png" width="600" height="300" />
+ </p>
+ 
+ In general, I do not know what size my object of interest will be in the image I am searching. So makes sense to search in multiple scales. In this case, it's good idea to establish a minimum and a maximum scale at which I expect the object to appear and then reasonable number of intermediate scales to scan as well(see image below). 
+ 
+ <p align="right">
+ <img src="./img/22.png" width="600" height="300" />
+ </p>
+ 
+The think to be careful about scaling is that the total number of windows I am searching can increase rapidly which means my algorithm will run slower. It makes sense to restrict my search to the only areas of the images where vehicles might appear.
+ 
+Furthermore, when it comes to scale, I know for example that vehicles that appear small will be near the horizon. So search in a small scales could be restricted to even narrow a strip across the image.
+
+### Hog Sub-sampling Window Search Exercise
+To search in multiple scales I am going to write in this [exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/HogSub-samplingWindowSearchExercise.ipynb) a more efficient method which allows me extracting the Hog features once for each of a small set of predetermined window sizes (defined by a scale argument) and then can be sub-sampled to get all of its overlaying windows. Each window is defined by a scaling factor that impacts the window size. The scale factor can be set on different regions of the image (e.g. small near the horizon, larger in the center).
+
+ 
