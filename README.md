@@ -376,6 +376,16 @@ I am performing the task of identifying where vehicles are on the road but equal
 
 Below are presented six consecutive frames from the project video and I'm showing all the bounding boxes for where my classifier reported positive detections. I can see that overlapping detections exist for each of the two vehicles and in two of the frames, I find a false positive detection on the guardrail to the left. In this [exercise](https://github.com/A2Amir/Traditional-Object-Detection/blob/master/code/MultipleDetectionsAndFalsePositivesExerciese.ipynb), I'll build a heat-map from these detections in order to combine overlapping detections and remove false positives.
 
+# 16. Summarize my tracking pipeline
+
+In each frame of the video, I will run a search for vehicles using a sliding window and Hog Sub-sampling Window techniques Wherever my classifier returns a positive detection,I'll record the position of the window in which the detection was made (check [exercise](https://github.com/A2Amir/Traditional-Object-Detection/blob/master/code/Pipline.ipynb)).
+
+In some cases I might detect the same vehicle in overlapping windows or at different scales. In the case of overlapping detections I can assign the position of the detection to the centroid of the overlapping windows. I also have false positives which I can filter out by determining which detections appear in one frame but not the next. 
+
+Once I have a high confidence detection I can record how it's centroid is moving from frame to frame and I eventually estimate where it will appear in each subsequent frame.
+
+# 17 Deep Learning Approach
+Deep Learning Approach
 
 
  
