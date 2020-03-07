@@ -83,7 +83,7 @@ I could differentiate the two images based on the differences in histograms alon
  </p>
 
 
-# 5. Color Spaces
+# 6. Color Spaces
 
 Whether I use raw colors directly or build a histogram of those values, I still haven't solved the problem of representing objects of the same class that can be of different colors. Let's take a look at the image below to see how its color values are distributed in the RGB color space.
 
@@ -108,7 +108,7 @@ Here is [a code](https://github.com/A2Amir/Object-Detection/blob/master/code/Exp
 As seen in the exercise by trying different color spaces such as LUV or HLS I can find a way to consistently separate vehicle images from non-vehicles but It doesn't have to be perfect, but it will help when combined with other kinds of features fed into a classifier.
 
 
-# 6. Spatial Binning of Color
+# 7. Spatial Binning of Color
 raw pixel values are still quite useful to include in my feature vector in searching for cars. While it could be cumbersome to include three color channels of a full resolution image, I can perform spatial binning on an image and still retain enough information to help in finding vehicles.
 
 As seen in the example below, even going all the way down to 32 x 32 pixel resolution, the car itself is still clearly identifiable by eye, and this means that the relevant features are still preserved at this resolution.
@@ -138,7 +138,7 @@ print(feature_vec.shape)
 #### Spatial Binning Exercise
 the goal of [this exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/SpatialBinningExercise.ipynb) is to write a function that takes an image, a color space conversion, and the resolution I would like to convert it to, and returns a feature vector.
 
-# 7. Gradient Features
+# 8. Gradient Features
 
 Transforming color values give me only one aspect of an object's appearance. When I have a class of objects that can vary in color (see below), structural ques like gradients or edges might give me a more robust presentation. 
 
@@ -205,7 +205,7 @@ In [this exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/H
 The documentation for this function can be found [here](http://scikit-image.org/docs/dev/api/skimage.feature.html?highlight=feature%20hog#skimage.feature.hog) and a brief explanation of the algorithm and tutorial can be found [here](http://scikit-image.org/docs/dev/auto_examples/features_detection/plot_hog.html).
 
 
-# 8. Data Exploration
+# 9. Data Exploration
 
  Throughout the rest of this lesson, I ll use [a relatively small labeled dataset](https://github.com/A2Amir/Object-Detection/tree/master/dataset) to try out feature extraction and training a classifier. Before I get on to training a classifier, let's explore the dataset a bit. This dataset is a subset of the data I'll be starting with for the project.
 
@@ -222,7 +222,7 @@ The documentation for this function can be found [here](http://scikit-image.org/
 
 Here you can see [the code exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/DataExplorationExercise.ipynb) I provided to extract the car/not-car image filenames into two lists. 
 
-# 9. Combine and Normalize Features 
+# 10. Combine and Normalize Features 
 
 As noted before, it's not necessary to use only one kind of feature for object detection. 
 I can combine both color-based and shape-based features. After all, they complement each other in the information they capture about a desired object to design a more robust detection system. 
@@ -361,7 +361,7 @@ Furthermore, when it comes to scale, I know for example that vehicles that appea
 ### Hog Sub-sampling Window Search Exercise
 To search in multiple scales I am going to write in this [exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/HogSub-samplingWindowSearchExercise.ipynb) a more efficient method which allows me extracting the Hog features once for each of a small set of predetermined window sizes (defined by a scale argument) and then can be sub-sampled to get all of its overlaying windows. Each window is defined by a scaling factor that impacts the window size. The scale factor can be set on different regions of the image (e.g. small near the horizon, larger in the center).
 
- # 15. False Positives
+ # 16. False Positives
  
 
 Now I have a scheme for searching across the image for possible detections, but I noticed that my classifier is not perfect. In some cases, it will report multiple overlapping instances of the same car (known as duplicates detections) or even report cars where there are none (known as false positives).I will need to filter them out.
@@ -376,7 +376,7 @@ I am performing the task of identifying where vehicles are on the road but equal
 
 Below are presented six consecutive frames from the project video and I'm showing all the bounding boxes for where my classifier reported positive detections. I can see that overlapping detections exist for each of the two vehicles and in two of the frames, I find a false positive detection on the guardrail to the left. In this [exercise](https://github.com/A2Amir/Traditional-Object-Detection/blob/master/code/MultipleDetectionsAndFalsePositivesExerciese.ipynb), I'll build a heat-map from these detections in order to combine overlapping detections and remove false positives.
 
-# 16. Summarize my tracking pipeline
+# 17. Summarize my tracking pipeline
 
 In each frame of the video, I will run a search for vehicles using a sliding window and Hog Sub-sampling Window techniques Wherever my classifier returns a positive detection,I'll record the position of the window in which the detection was made (check [exercise](https://github.com/A2Amir/Traditional-Object-Detection/blob/master/code/Pipline.ipynb)).
 
@@ -384,7 +384,7 @@ In some cases I might detect the same vehicle in overlapping windows or at diffe
 
 Once I have a high confidence detection I can record how it's centroid is moving from frame to frame and I eventually estimate where it will appear in each subsequent frame.
 
-# 17. Deep Learning Approach
+# 18. Deep Learning Approach
 
 As seen in the traditional aprroach for object detection we have many parameters to tune which could be a big proplem to use this approach in the self driving car system. In the [next lesson](https://github.com/A2Amir/Traditional-Object-Detection) I am going to use deep learning approach as a proper detection system for vehicles in the self driving cars.
  
