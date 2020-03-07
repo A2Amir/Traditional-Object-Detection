@@ -378,7 +378,7 @@ Below are presented six consecutive frames from the project video and I'm showin
 
 # 17. Summarize my tracking pipeline
 
-In each frame of the video, I will run a search for vehicles using a sliding window and Hog Sub-sampling Window techniques Wherever my classifier returns a positive detection,I'll record the position of the window in which the detection was made (check [exercise](https://github.com/A2Amir/Traditional-Object-Detection/blob/master/code/Pipline.ipynb)).
+In each frame of the video, I will run a search for vehicles using a sliding window and Hog Sub-sampling Window techniques Wherever my classifier returns a positive detection,I'll record the position of the window in which the detection was made (check this [exercise](https://github.com/A2Amir/Traditional-Object-Detection/blob/master/code/Pipline.ipynb)).
 
 In some cases I might detect the same vehicle in overlapping windows or at different scales. In the case of overlapping detections I can assign the position of the detection to the centroid of the overlapping windows. I also have false positives which I can filter out by determining which detections appear in one frame but not the next. 
 
