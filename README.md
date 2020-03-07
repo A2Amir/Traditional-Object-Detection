@@ -384,8 +384,7 @@ In some cases I might detect the same vehicle in overlapping windows or at diffe
 
 Once I have a high confidence detection I can record how it's centroid is moving from frame to frame and I eventually estimate where it will appear in each subsequent frame.
 
-# 17 Deep Learning Approach
-Deep Learning Approach
+# 17. Deep Learning Approach
 
-
+As seen in the traditional aprroach for object detection we have many parameters to tune which could be a big proplem to use this approach in the self driving car system. In the [next lesson](https://github.com/A2Amir/Traditional-Object-Detection) I am going to use deep learning approach as a proper detection system for vehicles in the self driving cars.
  
