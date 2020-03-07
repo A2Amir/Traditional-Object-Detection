@@ -361,4 +361,21 @@ Furthermore, when it comes to scale, I know for example that vehicles that appea
 ### Hog Sub-sampling Window Search Exercise
 To search in multiple scales I am going to write in this [exercise](https://github.com/A2Amir/Object-Detection/blob/master/code/HogSub-samplingWindowSearchExercise.ipynb) a more efficient method which allows me extracting the Hog features once for each of a small set of predetermined window sizes (defined by a scale argument) and then can be sub-sampled to get all of its overlaying windows. Each window is defined by a scaling factor that impacts the window size. The scale factor can be set on different regions of the image (e.g. small near the horizon, larger in the center).
 
+ # 15. False Positives
+ 
+
+Now I have a scheme for searching across the image for possible detections, but I noticed that my classifier is not perfect. In some cases, it will report multiple overlapping instances of the same car (known as duplicates detections) or even report cars where there are none (known as false positives).I will need to filter them out.
+
+ <p align="right">
+ <img src="./img/23.png" width="600" height="300" />
+ </p>
+ 
+I am performing the task of identifying where vehicles are on the road but equally important where they are not. I would like to get the best estimate possible for the position and size of the cars I detect. That means whether it's a single detection or multiple detections on the same car, a tight bounding box for each car is what I am aiming for. In this next exercise, I'll write code to handle multiple detections and  false positives.
+
+#### Multiple Detections & False Positives Exerciese
+
+Below are presented six consecutive frames from the project video and I'm showing all the bounding boxes for where my classifier reported positive detections. I can see that overlapping detections exist for each of the two vehicles and in two of the frames, I find a false positive detection on the guardrail to the left. In this [exercise](https://github.com/A2Amir/Traditional-Object-Detection/blob/master/code/MultipleDetectionsAndFalsePositivesExerciese.ipynb), I'll build a heat-map from these detections in order to combine overlapping detections and remove false positives.
+
+
+
  
