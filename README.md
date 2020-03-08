@@ -385,5 +385,5 @@ Once I have a high confidence detection I can record how it's centroid is moving
 
 # 18. Deep Learning Approach
 
-As seen in the traditional aprroach for object detection we have many parameters to tune which could be a big proplem to use this approach in the self driving car system. In the [next lesson](https://github.com/A2Amir/Traditional-Object-Detection) I am going to use deep learning approach as a proper detection system for vehicles in the self driving cars.
+As seen in the traditional aprroach for object detection we have many parameters to tune which could be a big proplem to use this approach in the self driving car system. In the [next lesson](https://github.com/A2Amir/Object-Detection--MobileNet-and-MobileNetSSD-) I am going to use deep learning approach as a proper detection system for vehicles in the self driving cars.
  
